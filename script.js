@@ -1,5 +1,4 @@
-import * as XLSX from 'https://cdn.sheetjs.com/xlsx-latest/package/xlsx.mjs';
-
+import * as XLSX from 'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js';
 document
   .getElementById('file-selector')
   .addEventListener('change', async (e) => {

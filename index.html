@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="styles.css"></link>
+  </head>
+  <body>
+    <h1>
+      Upload Excel File and Create Groups of Frames Sizes from Structural
+      Openings
+    </h1>
+    <p>
+      The Excel document you upload must have the data on the first worksheet, and there must be three columns, Id, height, and Width. (Order doesn't matter you can specify)
+    </p>
+    <h2>Input structural opening tolerances</h2>
+    <div class="input-container">
+      <label for="std-tolerance">Whats the standard tolereance? </label>
+      <input id="std-tolerance" name="std-tolerance" type="number" value="10" />
+    </div>
+
+    <div class="input-container">
+      <label for="max-tolerance">Whats the max tolerance? </label>
+      <input id="max-tolerance" name="max-tolerance" type="number" value="20" />
+    </div>
+
+    <h2>Identify which columns</h2>
+    <div class="input-container">
+      <label for="id-column-input">Which column is the id? (1,2,3): </label>
+      <input id="id-column-input" name="id-input" type="number" value="" />
+    </div>
+
+    <div class="input-container">
+      <label for="height-column-input"
+        >Which column is the height? (1,2,3):
+      </label>
+      <input
+        id="height-column-input"
+        name="height-input"
+        type="number"
+        value=""
+      />
+    </div>
+
+    <div class="input-container">
+      <label for="width-column-input"
+        >Which column is the width? (1,2,3):
+      </label>
+      <input
+        id="width-column-input"
+        name="width-input"
+        type="number"
+        value=""
+      />
+    </div>
+
+    <h2>Select the File</h2>
+    <input id="file-selector" type="file" accept=".xlsx,.xls" />
+
+    <div id="grouped-frames-output"></div>
+
+    <script type="module" src="/script.js"></script>
+  </body>
+</html>

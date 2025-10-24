@@ -1,0 +1,27 @@
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-container label {
+  width: 260px;
+}
+
+.input-container input[type='number'],
+.input-container input[type='text'] {
+  width: 120px;
+  padding: 4px 6px;
+}
+
+.span {
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 370px;
+}
+#file-selector {
+  margin-left: 5px;
+  margin-bottom: 20px;
+}

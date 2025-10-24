@@ -8,8 +8,7 @@
   width: 260px;
 }
 
-.input-container input[type='number'],
-.input-container input[type='text'] {
+.input-container input {
   width: 120px;
   padding: 4px 6px;
 }
@@ -21,6 +20,7 @@
   border-radius: 6px;
   width: 370px;
 }
+
 #file-selector {
   margin-left: 5px;
   margin-bottom: 20px;

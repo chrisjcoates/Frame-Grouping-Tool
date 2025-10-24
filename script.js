@@ -1,4 +1,3 @@
-import * as XLSX from 'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js';
 document
   .getElementById('file-selector')
   .addEventListener('change', async (e) => {
@@ -32,7 +31,19 @@ document
     const frameGroups = groupFrameSizes(fileData, stdTolerance, maxTolerance);
 
     const outputContainer = document.getElementById('grouped-frames-output');
+
     outputContainer.innerHTML = '';
+
+    // create Totals header
+    const headerDiv = document.createElement('div');
+    headerDiv.innerHTML = `Total Frames: ${rows.length} | Number of sizes: ${frameGroups.length}`;
+    headerDiv.style.marginBottom = '1em';
+    headerDiv.style.padding = '10px';
+    headerDiv.style.border = '1px solid #ccc';
+    headerDiv.style.borderRadius = '6px';
+    headerDiv.style.background = '#f9f9f9';
+    headerDiv.style.width = '370px';
+    outputContainer.appendChild(headerDiv);
 
     frameGroups.forEach((g, i) => {
       const newDiv = document.createElement('div');

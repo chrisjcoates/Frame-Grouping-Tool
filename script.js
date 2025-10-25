@@ -76,14 +76,14 @@ document
       const pre = document.createElement('pre');
       pre.textContent = output;
 
-      // add the eleming to the output container
+      // add the eletment to the output container
       newDiv.appendChild(pre);
       outputContainer.appendChild(newDiv);
     });
   });
 
 function groupFrameSizes(array, stdTolerance, maxTolerance) {
-  // Sort the array by soH  eight
+  // Sort the array by soH eight
   array.sort(function (a, b) {
     if (a.soHeight === b.soHeight) {
       return a.soWidth - b.soWidth; // if soHeight a == soHeight b sort by soWidth

@@ -65,7 +65,7 @@ document
       // Set the text output for each group
       let output = '';
       output += `Group ${i + 1}\n`;
-      output += `Frame Size: ${g.frameHeight} × ${g.frameWidth} x ${g.wallDepth}\n`;
+      output += `Frame Size: ${g.frameHeight} × ${g.frameWidth} x ${g.wallDepth} - ${g.openings.length} No.\n`;
       output += `Structural Openings:\n`;
       // loop group the opening array in ach group and add the S/O sizes to the text output
       g.openings.forEach((o) => {

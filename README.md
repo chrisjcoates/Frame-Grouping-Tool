@@ -6,7 +6,9 @@ A lightweight browser-based utility for grouping **door frames from structural o
 
 ## Overview
 
-The **Frame Grouping Tool** lets you upload an Excel file of structural openings (with height and width values) and automatically groups them into compatible frame sets based on standard and maximum tolerance values.
+The **Frame Grouping Tool** lets you upload an Excel file of structural openings (with height, width, and depth values) and automatically groups them into compatible frame sets based on standard and maximum tolerance values.
+
+This tool is designed to assist with creating take-offs from architectural door set schedules for buildings.
 
 All processing happens **locally in the browser** — no data is stored.
 
@@ -50,17 +52,18 @@ All processing happens **locally in the browser** — no data is stored.
 ## Example output:
 
 ```text
+Total Frames: 4 | Number of sizes: 2
 ----------------------------------------
 Group 1
- Frame Size: 2080 × 910
+ Frame Size: 2080 × 910 - 2 No.
  Structural Openings:
-   - ID1 (2090 × 910)
-   - ID2 (2085 × 915)
+   - ID1 (2090 × 910 x 122)
+   - ID2 (2085 × 915 x 122)
 ----------------------------------------
 Group 2
- Frame Size: 2070 × 1010
+ Frame Size: 2070 × 1010 - 2 No.
  Structural Openings:
-   - ID3 (2080 × 1015)
-   - ID4 (2075 × 1012)
+   - ID3 (2080 × 1015 x 115)
+   - ID4 (2075 × 1012 x 115)
 ----------------------------------------
 ```

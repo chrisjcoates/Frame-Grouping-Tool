@@ -3,12 +3,16 @@ document
   .addEventListener('change', async (e) => {
     const stdTolerance = Number(document.getElementById('std-tolerance').value);
     const maxTolerance = Number(document.getElementById('max-tolerance').value);
+
+    // Get the column indexes from html page
     const idColumn =
       Number(document.getElementById('id-column-input').value) - 1;
     const heightColumn =
       Number(document.getElementById('height-column-input').value) - 1;
     const widthColumn =
       Number(document.getElementById('width-column-input').value) - 1;
+    const depthColumn =
+      Number(document.getElementById('depth-column-input').value) - 1;
 
     const file = e.target.files[0];
     if (!file) return;
@@ -26,10 +30,13 @@ document
       id: row[idColumn],
       soHeight: Number(row[heightColumn]),
       soWidth: Number(row[widthColumn]),
+      wallDepth: Number(row[depthColumn]),
     }));
 
+    // group all the structural opening sizes to frame sizes
     const frameGroups = groupFrameSizes(fileData, stdTolerance, maxTolerance);
 
+    // Get the container for the output
     const outputContainer = document.getElementById('grouped-frames-output');
 
     outputContainer.innerHTML = '';
@@ -45,6 +52,7 @@ document
     headerDiv.style.width = '370px';
     outputContainer.appendChild(headerDiv);
 
+    // loop through frame groups and create elements for each group
     frameGroups.forEach((g, i) => {
       const newDiv = document.createElement('div');
       newDiv.style.marginBottom = '1em';
@@ -54,18 +62,21 @@ document
       newDiv.style.background = '#f9f9f9';
       newDiv.style.width = '370px';
 
+      // Set the text output for each group
       let output = '';
       output += `Group ${i + 1}\n`;
-      output += `Frame Size: ${g.frameHeight} × ${g.frameWidth}\n`;
+      output += `Frame Size: ${g.frameHeight} × ${g.frameWidth} x ${g.wallDepth}\n`;
       output += `Structural Openings:\n`;
-
+      // loop group the opening array in ach group and add the S/O sizes to the text output
       g.openings.forEach((o) => {
-        output += `  - ${o.id} (${o.soHeight} × ${o.soWidth})\n`;
+        output += `  - ${o.id} (${o.soHeight} × ${o.soWidth} x ${o.wallDepth})\n`;
       });
 
+      // create new element
       const pre = document.createElement('pre');
       pre.textContent = output;
 
+      // add the eleming to the output container
       newDiv.appendChild(pre);
       outputContainer.appendChild(newDiv);
     });
@@ -87,10 +98,11 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
     let added = false;
 
     if (groups.length === 0) {
-      // create new group
+      // if arrays empty create new group
       let newGroup = {
         frameHeight: array[o].soHeight - stdTolerance,
         frameWidth: array[o].soWidth - stdTolerance,
+        wallDepth: array[o].wallDepth,
         openings: [{ ...array[o] }],
       };
 
@@ -111,10 +123,13 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
           widthDiff >= stdTolerance &&
           widthDiff <= maxTolerance
         ) {
-          // fits this frame, add to this group
-          group.openings.push({ ...array[o] });
-          added = true;
-          break; // stop checking other groups
+          // Check if the wall depths match
+          if (array[o].wallDepth === group.wallDepth) {
+            // if it does, add to this group
+            group.openings.push({ ...array[o] });
+            added = true;
+            break; // stop checking other groups
+          }
         }
       }
       // if it didn't fit any group, make a new one
@@ -122,6 +137,7 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
         let newGroup = {
           frameHeight: array[o].soHeight - stdTolerance,
           frameWidth: array[o].soWidth - stdTolerance,
+          wallDepth: array[o].wallDepth,
           openings: [{ ...array[o] }],
         };
         groups.push(newGroup);

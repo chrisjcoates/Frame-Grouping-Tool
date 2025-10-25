@@ -40,6 +40,8 @@ All processing happens **locally in the browser** — no data is stored.
 
 ## Excel File Example
 
+[Example Door Set Schedule.xls](/Example%20-%20Door%20Set%20Schedule.xls) - If using the example the column indexes are ID = 1, Height = 14, Width = 13, and Depth = 7
+
 | #   | A   | B          | C         | D   |
 | --- | --- | ---------- | --------- | --- |
 | 1   | Id  | S/O Height | S/O Width |     |

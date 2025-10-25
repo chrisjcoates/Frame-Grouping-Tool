@@ -42,14 +42,14 @@ All processing happens **locally in the browser** — no data is stored.
 
 [Example Door Set Schedule.xls](/Example%20-%20Door%20Set%20Schedule.xls) - If using the example the column indexes are ID = 1, Height = 14, Width = 13, and Depth = 7
 
-| #   | A   | B          | C         | D   |
-| --- | --- | ---------- | --------- | --- |
-| 1   | Id  | S/O Height | S/O Width |     |
-| 2   | ID1 | 2098       | 900       |     |
-| 3   | ID2 | 2090       | 910       |     |
-| 4   | ID3 | 2095       | 912       |     |
-| 5   | ID4 | 2091       | 913       |     |
-| 6   |     |            |           |     |
+| #   | A   | B          | C         | D         | C   |
+| --- | --- | ---------- | --------- | --------- | --- |
+| 1   | Id  | S/O Height | S/O Width | S/O depth |     |
+| 2   | ID1 | 2090       | 910       | 122       |     |
+| 3   | ID2 | 2085       | 915       | 122       |     |
+| 4   | ID3 | 2080       | 1015      | 115       |     |
+| 5   | ID4 | 2075       | 1012      | 115       |     |
+| 6   |     |            |           |           |     |
 
 ## Example output:
 

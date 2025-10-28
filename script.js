@@ -44,13 +44,17 @@ document
 
     // create Totals header
     const headerDiv = document.createElement('div');
-    headerDiv.innerHTML = `Total Door Sets: ${rows.length} | Number of frame sizes: ${frameGroups.length}`;
+    headerDiv.innerHTML = `Total Door Sets: ${fileData.length} | Number of frame sizes: ${frameGroups.length}`;
     headerDiv.style.marginBottom = '1em';
     headerDiv.style.padding = '10px';
     headerDiv.style.border = '1px solid #ccc';
     headerDiv.style.borderRadius = '6px';
     headerDiv.style.background = '#f9f9f9';
     headerDiv.style.width = '370px';
+
+    // Clear inner html
+    headerContainer.innerHTML = '';
+    // add the header to the container
     headerContainer.appendChild(headerDiv);
 
     // Update the original array to include groups frames sizes
@@ -98,8 +102,8 @@ document
     });
   });
 
-function updateOriginalArray(origionalArray, groupedArray) {
-  let newArray = origionalArray;
+function updateOriginalArray(originalArray, groupedArray) {
+  let newArray = originalArray;
 
   console.log('Running updateOrininalArray Function...');
   // Loop through origional array
@@ -146,8 +150,10 @@ function createTable(data) {
 }
 
 function groupFrameSizes(array, stdTolerance, maxTolerance) {
+  // clone the array to keep the origional intact
+  const clonedArray = array;
   // Sort the array by soH eight
-  array.sort(function (a, b) {
+  clonedArray.sort(function (a, b) {
     if (a.soHeight === b.soHeight) {
       return a.soWidth - b.soWidth; // if soHeight a == soHeight b sort by soWidth
     }
@@ -157,16 +163,16 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
   let groups = [];
 
   // loop though openings array
-  for (let o = 0; o < array.length; o++) {
+  for (let o = 0; o < clonedArray.length; o++) {
     let added = false;
 
     if (groups.length === 0) {
       // if arrays empty create new group
       let newGroup = {
-        frameHeight: array[o].soHeight - stdTolerance,
-        frameWidth: array[o].soWidth - stdTolerance,
-        wallDepth: array[o].wallDepth,
-        openings: [{ ...array[o] }],
+        frameHeight: clonedArray[o].soHeight - stdTolerance,
+        frameWidth: clonedArray[o].soWidth - stdTolerance,
+        wallDepth: clonedArray[o].wallDepth,
+        openings: [{ ...clonedArray[o] }],
       };
 
       groups.push(newGroup);
@@ -176,8 +182,8 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
         const group = groups[g];
 
         // calculate the clearance
-        const heightDiff = array[o].soHeight - group.frameHeight;
-        const widthDiff = array[o].soWidth - group.frameWidth;
+        const heightDiff = clonedArray[o].soHeight - group.frameHeight;
+        const widthDiff = clonedArray[o].soWidth - group.frameWidth;
 
         // check if within tolerance
         if (
@@ -187,9 +193,9 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
           widthDiff <= maxTolerance
         ) {
           // Check if the wall depths match
-          if (array[o].wallDepth === group.wallDepth) {
+          if (clonedArray[o].wallDepth === group.wallDepth) {
             // if it does, add to this group
-            group.openings.push({ ...array[o] });
+            group.openings.push({ ...clonedArray[o] });
             added = true;
             break; // stop checking other groups
           }
@@ -198,10 +204,10 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
       // if it didn't fit any group, make a new one
       if (!added) {
         let newGroup = {
-          frameHeight: array[o].soHeight - stdTolerance,
-          frameWidth: array[o].soWidth - stdTolerance,
-          wallDepth: array[o].wallDepth,
-          openings: [{ ...array[o] }],
+          frameHeight: clonedArray[o].soHeight - stdTolerance,
+          frameWidth: clonedArray[o].soWidth - stdTolerance,
+          wallDepth: clonedArray[o].wallDepth,
+          openings: [{ ...clonedArray[o] }],
         };
         groups.push(newGroup);
       }

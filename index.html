@@ -13,7 +13,14 @@
       Openings
     </h1>
     <p>
-      The Excel file you upload must contain the data on the first worksheet and include at least four columns that represent: <strong>ID(reference)</strong>, <strong>Height</strong>, <strong>Width</strong>, and <strong>Wall Depth</strong>.<br>
+      The Excel file you upload must contain the data on the first worksheet and include at least five columns that represent:
+      <ul>
+        <li>Fire rating</li>
+        <li>ID (Reference)</li>
+        <li>Height</li>
+        <li>Width</li>
+        <li>Wall Depth</li>
+      </ul>
       The column order does not matter — you’ll be able to specify which column corresponds to each field within the tool.<br>
       The tool will asume the first row of the worksheet is the header.<br>
       Make sure your Excel sheet is properly formatted so that all rows contain valid data and are not interrupted by section headers or blank rows.
@@ -32,8 +39,18 @@
 
     <h2>Identify which columns</h2>
     <div class="input-container">
+      <label for="rating-column-input">Which column is Fire Rating? (1,2,3): </label>
+      <input id="rating-column-input" name="rating-input" type="number" value="0" />
+    </div>
+
+    <div class="input-container">
+      <label for="type-column-input">Which column is Type? (1,2,3): </label>
+      <input id="type-column-input" name="type-input" type="number" value="0" />
+    </div>
+
+    <div class="input-container">
       <label for="id-column-input">Which column is the id? (1,2,3): </label>
-      <input id="id-column-input" name="id-input" type="number" value="1" />
+      <input id="id-column-input" name="id-input" type="number" value="0" />
     </div>
 
     <div class="input-container">
@@ -44,7 +61,7 @@
         id="height-column-input"
         name="height-input"
         type="number"
-        value="2"
+        value="0"
       />
     </div>
 
@@ -56,7 +73,7 @@
         id="width-column-input"
         name="width-input"
         type="number"
-        value="3"
+        value="0"
       />
     </div>
 
@@ -68,7 +85,7 @@
         id="depth-column-input"
         name="deoth-input"
         type="number"
-        value="4"
+        value="0"
       />
     </div>
 
@@ -80,7 +97,8 @@
     <div id="table-container"></div>
 
 
-    <div id="grouped-frames-output"></div>
+    <div id="grouped-frames-output">
+    </div>
 
     <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script type="module" src="script.js"></script>

@@ -5,20 +5,11 @@
 }
 
 .input-container label {
-  width: 260px;
+  width: 280px;
 }
 
-.input-container input {
-  width: 120px;
-  padding: 4px 6px;
-}
-
-.span {
-  margin-bottom: 5px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  width: 370px;
+.input-container label {
+  width: 280px;
 }
 
 #file-selector {

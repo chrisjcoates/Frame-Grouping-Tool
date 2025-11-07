@@ -6,7 +6,7 @@ A lightweight browser-based utility for grouping **door frames from structural o
 
 ## Overview
 
-The **Frame Grouping Tool** lets you upload an Excel file of structural openings (with height, width, and depth values) and automatically groups them into compatible frame sets based on standard and maximum tolerance values.
+The **Frame Grouping Tool** lets you upload an Excel file of structural openings (with height, width, and depth, and fire rating values) and automatically groups them into compatible frame sets based on standard and maximum tolerance values.
 
 This tool is designed to assist with creating take-offs from architectural door set schedules for buildings.
 
@@ -30,6 +30,8 @@ All processing happens **locally in the browser** — no data is stored.
 2. Enter your standard and maximum tolerance values.
 3. Specify which columns in your Excel sheet correspond to:
    - ID (or reference)
+   - Fire Rating
+   - Type
    - S/O Height
    - S/O Width
 4. Upload your Excel file.
@@ -40,7 +42,9 @@ All processing happens **locally in the browser** — no data is stored.
 
 ## Excel File Example
 
-[Example Door Set Schedule.xls](/Example%20-%20Door%20Set%20Schedule.xls) - If using the example the column indexes are ID = 1, Height = 14, Width = 13, and Depth = 7
+Example Door Set Schedule.xls https://docs.google.com/spreadsheets/d/1umKlonYScEA-Pu4Jj47CbZo81hQjJvFo/edit?usp=sharing&ouid=101664862541048145425&rtpof=true&sd=true
+
+- If using the example the column indexes are ID = 1, Fire Rate = 3, Type = 6, Height = 11, Width = 10, and Depth = 12
 
 | #   | A   | B          | C         | D         | C   |
 | --- | --- | ---------- | --------- | --------- | --- |

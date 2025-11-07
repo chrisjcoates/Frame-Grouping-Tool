@@ -34,6 +34,7 @@ All processing happens **locally in the browser** — no data is stored.
    - Type
    - S/O Height
    - S/O Width
+   - Wall Depth
 4. Upload your Excel file.
 5. The tool will:
    - Sort all structural openings

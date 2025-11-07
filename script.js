@@ -5,6 +5,12 @@ document
     const maxTolerance = Number(document.getElementById('max-tolerance').value);
 
     // Get the column indexes from html page
+    const ratingColumn = Number(
+      document.getElementById('rating-column-input').value - 1
+    );
+    const typeColumn = Number(
+      document.getElementById('type-column-input').value - 1
+    );
     const idColumn =
       Number(document.getElementById('id-column-input').value) - 1;
     const heightColumn =
@@ -28,9 +34,11 @@ document
     // Skip the header row (row[0])
     const fileData = rows.slice(1).map((row) => ({
       id: row[idColumn],
-      soHeight: Number(row[heightColumn]),
-      soWidth: Number(row[widthColumn]),
-      wallDepth: Number(row[depthColumn]),
+      type: row[typeColumn],
+      fire_Rating: row[ratingColumn],
+      so_Height: Number(row[heightColumn]),
+      so_Width: Number(row[widthColumn]),
+      wall_Depth: Number(row[depthColumn]),
     }));
 
     // group all the structural opening sizes to frame sizes
@@ -60,7 +68,7 @@ document
     // Update the original array to include groups frames sizes
     let updatedArray = updateOriginalArray(fileData, frameGroups);
     // Add a table tot hte html page to display the updated array data
-    createTable(updatedArray);
+    //createTable(updatedArray, 'table-container');
 
     const groupTitle = document.createElement('h2');
     groupTitle.style.marginTop = '1em';
@@ -80,25 +88,32 @@ document
       newDiv.style.border = '1px solid #ccc';
       newDiv.style.borderRadius = '6px';
       newDiv.style.background = '#f9f9f9';
-      newDiv.style.width = '370px';
+      newDiv.style.width = '700px';
 
       // Set the text output for each group
       let output = '';
       output += `Group ${i + 1}\n`;
-      output += `Frame Size: ${g.frameHeight} × ${g.frameWidth} x ${g.wallDepth} - ${g.openings.length} No.\n`;
-      output += `Structural Openings:\n`;
-      // loop group the opening array in ach group and add the S/O sizes to the text output
-      g.openings.forEach((o) => {
-        output += `  - ${o.id} (${o.soHeight} × ${o.soWidth} x ${o.wallDepth})\n`;
-      });
+      output += `Fire Rating: ${g.fire_Rating}\n`;
+      output += `Frame Size: ${g.frame_Height} × ${g.frame_Width} x ${g.wall_Depth} - ${g.openings.length} No.\n`;
+      output += `Details:\n`;
 
       // create new element
       const pre = document.createElement('pre');
       pre.textContent = output;
 
-      // add the eletment to the output container
+      // create table container
+      const tableContainer = document.createElement('div');
+      tableContainer.style.marginTop = '0.5em';
+
+      // append both to the group div
       newDiv.appendChild(pre);
+      newDiv.appendChild(tableContainer);
+
+      // append the group div to output
       outputContainer.appendChild(newDiv);
+
+      // finally create the table inside that container
+      createTable(g.openings, tableContainer);
     });
   });
 
@@ -124,18 +139,18 @@ function updateOriginalArray(originalArray, groupedArray) {
   return newArray;
 }
 
-function createTable(data) {
-  // Build a table for the updated array
+function createTable(data, container) {
   if (!data || data.length === 0) {
-    document.getElementById('table-container').innerHTML = '';
+    container.innerHTML = '';
     return;
   }
 
   const columns = Object.keys(data[0]);
-
   let table = "<table border='1' cellspacing='0' cellpadding='5'>";
   table += '<thead><tr>';
-  columns.forEach((col) => (table += `<th>${col}</th>`));
+  columns.forEach(
+    (col) => (table += `<th>${col.replace('_', ' ').toUpperCase()}</th>`)
+  );
   table += '</tr></thead><tbody>';
 
   data.forEach((row) => {
@@ -145,8 +160,7 @@ function createTable(data) {
   });
 
   table += '</tbody></table>';
-
-  document.getElementById('table-container').innerHTML = table;
+  container.innerHTML = table;
 }
 
 function groupFrameSizes(array, stdTolerance, maxTolerance) {
@@ -154,10 +168,10 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
   const clonedArray = array;
   // Sort the array by soH eight
   clonedArray.sort(function (a, b) {
-    if (a.soHeight === b.soHeight) {
-      return a.soWidth - b.soWidth; // if soHeight a == soHeight b sort by soWidth
+    if (a.so_Height === b.so_Height) {
+      return a.so_Width - b.so_Width; // if soHeight a == soHeight b sort by soWidth
     }
-    return a.soHeight - b.soHeight;
+    return a.so_Height - b.so_Height;
   });
 
   let groups = [];
@@ -169,9 +183,10 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
     if (groups.length === 0) {
       // if arrays empty create new group
       let newGroup = {
-        frameHeight: clonedArray[o].soHeight - stdTolerance,
-        frameWidth: clonedArray[o].soWidth - stdTolerance,
-        wallDepth: clonedArray[o].wallDepth,
+        fire_Rating: clonedArray[o].fire_Rating,
+        frame_Height: clonedArray[o].so_Height - stdTolerance,
+        frame_Width: clonedArray[o].so_Width - stdTolerance,
+        wall_Depth: clonedArray[o].wall_Depth,
         openings: [{ ...clonedArray[o] }],
       };
 
@@ -182,8 +197,8 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
         const group = groups[g];
 
         // calculate the clearance
-        const heightDiff = clonedArray[o].soHeight - group.frameHeight;
-        const widthDiff = clonedArray[o].soWidth - group.frameWidth;
+        const heightDiff = clonedArray[o].so_Height - group.frame_Height;
+        const widthDiff = clonedArray[o].so_Width - group.frame_Width;
 
         // check if within tolerance
         if (
@@ -193,20 +208,27 @@ function groupFrameSizes(array, stdTolerance, maxTolerance) {
           widthDiff <= maxTolerance
         ) {
           // Check if the wall depths match
-          if (clonedArray[o].wallDepth === group.wallDepth) {
-            // if it does, add to this group
-            group.openings.push({ ...clonedArray[o] });
-            added = true;
-            break; // stop checking other groups
+          if (clonedArray[o].fire_Rating === group.fire_Rating) {
+            // if it does, check fire rating
+            if (clonedArray[o].wall_Depth === group.wall_Depth) {
+              group.openings.push({ ...clonedArray[o] });
+              added = true;
+              break; // stop checking other groups
+            } else {
+              group.openings.push({ ...clonedArray[o] });
+              added = true;
+              break; // stop checking other groups
+            }
           }
         }
       }
       // if it didn't fit any group, make a new one
       if (!added) {
         let newGroup = {
-          frameHeight: clonedArray[o].soHeight - stdTolerance,
-          frameWidth: clonedArray[o].soWidth - stdTolerance,
-          wallDepth: clonedArray[o].wallDepth,
+          fire_Rating: clonedArray[o].fire_Rating,
+          frame_Height: clonedArray[o].so_Height - stdTolerance,
+          frame_Width: clonedArray[o].so_Width - stdTolerance,
+          wall_Depth: clonedArray[o].wall_Depth,
           openings: [{ ...clonedArray[o] }],
         };
         groups.push(newGroup);

@@ -11,14 +11,24 @@ document
     const typeColumn = Number(
       document.getElementById('type-column-input').value - 1
     );
-    const idColumn =
-      Number(document.getElementById('id-column-input').value) - 1;
-    const heightColumn =
-      Number(document.getElementById('height-column-input').value) - 1;
-    const widthColumn =
-      Number(document.getElementById('width-column-input').value) - 1;
-    const depthColumn =
-      Number(document.getElementById('depth-column-input').value) - 1;
+    const idColumn = Number(
+      document.getElementById('id-column-input').value - 1
+    );
+    const heightColumn = Number(
+      document.getElementById('height-column-input').value - 1
+    );
+    const widthColumn = Number(
+      document.getElementById('width-column-input').value - 1
+    );
+    const depthColumn = Number(
+      document.getElementById('depth-column-input').value - 1
+    );
+    const vpColumn = Number(
+      document.getElementById('vp-column-input').value - 1
+    );
+    const lockColumn = Number(
+      document.getElementById('lock-column-input').value - 1
+    );
 
     const file = e.target.files[0];
     if (!file) return;
@@ -39,7 +49,11 @@ document
       so_Height: Number(row[heightColumn]),
       so_Width: Number(row[widthColumn]),
       wall_Depth: Number(row[depthColumn]),
+      vp_column: row[vpColumn],
+      lock_column: row[lockColumn],
     }));
+
+    console.log(fileData);
 
     // group all the structural opening sizes to frame sizes
     const frameGroups = groupFrameSizes(fileData, stdTolerance, maxTolerance);

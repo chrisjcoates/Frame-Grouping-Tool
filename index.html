@@ -20,6 +20,8 @@
         <li>Height</li>
         <li>Width</li>
         <li>Wall Depth</li>
+        <li>VPs</li>
+        <li>Locks</li>
       </ul>
       The column order does not matter — you’ll be able to specify which column corresponds to each field within the tool.<br>
       The tool will asume the first row of the worksheet is the header.<br>
@@ -39,23 +41,23 @@
 
     <h2>Identify which columns</h2>
     <div class="input-container">
-      <label for="rating-column-input">Which column is Fire Rating? (1,2,3): </label>
+      <label for="rating-column-input">Which column is for Fire Rating? (1,2,3): </label>
       <input id="rating-column-input" name="rating-input" type="number" value="0" />
     </div>
 
     <div class="input-container">
-      <label for="type-column-input">Which column is Type? (1,2,3): </label>
+      <label for="type-column-input">Which column is for Type? (1,2,3): </label>
       <input id="type-column-input" name="type-input" type="number" value="0" />
     </div>
 
     <div class="input-container">
-      <label for="id-column-input">Which column is the id? (1,2,3): </label>
+      <label for="id-column-input">Which column is for the id? (1,2,3): </label>
       <input id="id-column-input" name="id-input" type="number" value="0" />
     </div>
 
     <div class="input-container">
       <label for="height-column-input"
-        >Which column is the height? (1,2,3):
+        >Which column is for the height? (1,2,3):
       </label>
       <input
         id="height-column-input"
@@ -67,7 +69,7 @@
 
     <div class="input-container">
       <label for="width-column-input"
-        >Which column is the width? (1,2,3):
+        >Which column is for the width? (1,2,3):
       </label>
       <input
         id="width-column-input"
@@ -79,11 +81,35 @@
 
     <div class="input-container">
       <label for="depth-column-input"
-        >Which column is the wall depth? (1,2,3):
+        >Which column is for the wall depth? (1,2,3):
       </label>
       <input
         id="depth-column-input"
-        name="deoth-input"
+        name="depth-input"
+        type="number"
+        value="0"
+      />
+    </div>
+
+    <div class="input-container">
+      <label for="vp-column-input"
+        >Which column is for the VPs? (1,2,3):
+      </label>
+      <input
+        id="vp-column-input"
+        name="vp-input"
+        type="number"
+        value="0"
+      />
+    </div>
+
+    <div class="input-container">
+      <label for="lock-column-input"
+        >Which column is for the Lock's? (1,2,3):
+      </label>
+      <input
+        id="lock-column-input"
+        name="lock-input"
         type="number"
         value="0"
       />
